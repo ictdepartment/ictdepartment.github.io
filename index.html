@@ -30,10 +30,11 @@
   </script>
 </head>
 <body>
-  <button onclick="copyText('button1', 'hiddenText1')">Copy Hidden Text 1</button>
-  <button onclick="copyText('button2', 'hiddenText2')">Copy Hidden Text 2</button>
-  <button onclick="copyText('button3', 'hiddenText3')">Copy Hidden Text 3</button>
-  <button onclick="copyText('button4', 'hiddenText4')">Copy Hidden Text 4</button>
+  <button onclick="copyText('button1', 'hiddenText1')">Assignment 1-1</button>
+  <button onclick="copyText('button2', 'hiddenText2')">Assignment 1-2</button>
+  <button onclick="copyText('button3', 'hiddenText3')">Assignment 2-1</button>
+  <button onclick="copyText('button4', 'hiddenText4')">Assignment 2-2</button>
+  <button onclick="copyText('button4', 'hiddenText5')">Assignment 3</button>
 
   <div id="hiddenText1" style="display: none;">
     <pre>
@@ -144,7 +145,179 @@ int main() {
 
     </pre>
   </div>
-  <div id="hiddenText3" style="display: none;">This is the hidden text 3.</div>
-  <div id="hiddenText4" style="display: none;">This is the hidden text 4.</div>
+  <div id="hiddenText3" style="display: none;"><pre>
+  #include iostream
+#include stdlib.h
+#include<omp.h>
+using namespace std;
+void bubble(int *, int);
+void swap(int &, int &);
+void bubble(int *a, int n) {
+for( int i = 0; i < n; i++ ) {
+int first = i % 2;
+#pragma omp parallel for shared(a,first)
+for( int j = first; j < n-1; j += 2 ) {
+if( a[ j ] > a[ j+1 ] ) {
+swap( a[ j ], a[ j+1 ] );
+}
+}
+}
+}
+void swap(int &a, int &b) {
+int test;
+test=a;
+a=b;
+b=test;
+}
+int main() {
+int *a,n;
+cout<<"\n enter total no of elements=>";
+cin>>n;
+a=new int[n];
+cout<<"\n enter elements=>";
+for(int i=0;i<n;i++) {
+cin>>a[i];
+}
+bubble(a,n);
+cout<<"\n sorted array is=>";
+for(int i=0;i<n;i++) {
+cout<<a[i]<<endl;
+}
+return 0;
+}
+  
+  </pre></div>
+  <div id="hiddenText4" style="display: none;"><pre>
+#include iostream
+#include stdlib.h
+#include omp.h
+using namespace std;
+
+void mergesort(int a[], int i, int j);
+void merge(int a[], int i1, int j1, int i2, int j2);
+
+void mergesort(int a[], int i, int j) {
+    int mid;
+    if (i < j) {
+        mid = (i + j) / 2;
+#pragma omp parallel sections
+        {
+#pragma omp section
+            {
+                mergesort(a, i, mid);
+            }
+#pragma omp section
+            {
+                mergesort(a, mid + 1, j);
+            }
+        }
+        merge(a, i, mid, mid + 1, j);
+    }
+}
+
+void merge(int a[], int i1, int j1, int i2, int j2) {
+    int temp[1000];
+    int i, j, k;
+    i = i1;
+    j = i2;
+    k = 0;
+    while (i <= j1 && j <= j2) {
+        if (a[i] < a[j]) {
+            temp[k++] = a[i++];
+        }
+        else {
+            temp[k++] = a[j++];
+        }
+    }
+    while (i <= j1) {
+        temp[k++] = a[i++];
+    }
+    while (j <= j2) {
+        temp[k++] = a[j++];
+    }
+    for (i = i1, j = 0; i <= j2; i++, j++) {
+        a[i] = temp[j];
+    }
+}
+
+int main() {
+    int* a, n, i;
+    cout << "\nEnter total number of elements: ";
+    cin >> n;
+    a = new int[n];
+    cout << "\nEnter elements: ";
+    for (i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    mergesort(a, 0, n - 1);
+    cout << "\nSorted array is: ";
+    for (i = 0; i < n; i++) {
+        cout << "\n" << a[i];
+    }
+    delete[] a;
+    return 0;
+}
+
+  </pre></div>
+  <div id="hiddenText5" style="display: none;"><pre>
+#include iostream
+#include vector
+#include omp.h
+#include climits
+using namespace std;
+void min_reduction(int arr[], int n) {
+int min_value = INT_MAX;
+#pragma omp parallel for reduction(min: min_value)
+for (int i = 0; i < n; i++) {
+if (arr[i] < min_value) {
+min_value = arr[i];
+}
+}
+cout << "Minimum value: " << min_value << endl;
+}
+void max_reduction(int arr[], int n) {
+int max_value = INT_MIN;
+#pragma omp parallel for reduction(max: max_value)
+for (int i = 0; i < n; i++) {
+if (arr[i] > max_value) {
+max_value = arr[i];
+}
+}
+cout << "Maximum value: " << max_value << endl;
+}
+void sum_reduction(int arr[], int n) {
+int sum = 0;
+#pragma omp parallel for reduction(+: sum)
+for (int i = 0; i < n; i++) {
+sum += arr[i];
+}
+cout << "Sum: " << sum << endl;
+}
+void average_reduction(int arr[], int n) {
+int sum = 0;
+#pragma omp parallel for reduction(+: sum)
+for (int i = 0; i < n; i++) {
+sum += arr[i];
+}
+cout << "Average: " << (double)sum / (n-1) << endl;
+}
+int main() {
+int *arr,n;
+cout<<"\n enter total no of elements=>";
+cin>>n;
+arr=new int[n];
+cout<<"\n enter elements=>";
+for(int i=0;i<n;i++) {
+cin>>arr[i];
+}
+// int arr[] = {5, 2, 9, 1, 7, 6, 8, 3, 4};
+// int n = size(arr);
+min_reduction(arr, n);
+max_reduction(arr, n);
+sum_reduction(arr, n);
+average_reduction(arr, n);
+}
+
+  </pre></div>
 </body>
 </html>
