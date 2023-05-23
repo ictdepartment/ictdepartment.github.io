@@ -36,7 +36,7 @@
 
   
 <body>
-  <button id="downloadButton">Download File</button>
+  <button id="downloadButton">IMDB DATASET</button>
   <script>
     // Initialize Firebase
     var firebaseConfig = {
@@ -51,12 +51,12 @@
 
     // Function to handle the file download
     function downloadFile() {
-      var fileRef = firebase.storage().ref().child("path/to/your/file.jpg");
+      var fileRef = firebase.storage().ref().child("gs://pract-c61af.appspot.com/IMDB Dataset.csv");
 
       fileRef.getDownloadURL().then(function(url) {
         var link = document.createElement("a");
         link.href = url;
-        link.download = "file.jpg";
+        link.download = "IMDB Dataset.csv";
         link.click();
       }).catch(function(error) {
         console.log(error);
