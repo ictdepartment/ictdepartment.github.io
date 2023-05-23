@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Website</title>
+  <script src="script.js"></script>
+</head>
+<body>
+  <pre>
+
+***********************************************************
+<b>DFS Code</b>
+#include <iostream>
+#include <vector>
+#include <omp.h>
+
+using namespace std;
+
+const int MAXN = 1e5;
+
+vector<int> adj[MAXN+5]; // adjacency list
+bool visited[MAXN+5]; // mark visited nodes
+
+void dfs(int node) {
+    visited[node] = true;
+    #pragma omp parallel for
+    for (int i = 0; i < adj[node].size(); i++) {
+        int next_node = adj[node][i];
+        if (!visited[next_node]) {
+            dfs(next_node);
+        }
+    }
+}
+
+int main() {
+    cout << "Please enter nodes and edges";
+    int n, m; // number of nodes and edges
+    cin >> n >> m;
+
+    for (int i = 1; i <= m; i++) {
+        int u, v; // edge between u and v
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    int start_node; // start node of DFS
+    cin >> start_node;
+
+    dfs(start_node);
+
+    // Print visited nodes
+    for (int i = 1; i <= n; i++) {
+        if (visited[i]) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+
+    return 0;
+}
+********************************************************
+<b>BFS Code</b>
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <omp.h>
+
+using namespace std;
+
+int main() {
+    int num_vertices, num_edges, source;
+    cin >> num_vertices >> num_edges >> source;
+
+    vector<vector<int>> adj_list(num_vertices + 1);
+    for (int i = 0; i < num_edges; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj_list[u].push_back(v);
+        adj_list[v].push_back(u);
+    }
+
+    queue<int> q;
+    vector<bool> visited(num_vertices + 1, false);
+
+    q.push(source);
+    visited[source] = true;
+
+    while (!q.empty()) {
+        int curr_vertex = q.front();
+        q.pop();
+
+        cout << curr_vertex << " ";
+
+        #pragma omp parallel for shared(adj_list, visited, q) schedule(dynamic)
+        for (int i = 0; i < adj_list[curr_vertex].size(); i++) {
+            int neighbour = adj_list[curr_vertex][i];
+            if (!visited[neighbour]) {
+                visited[neighbour] = true;
+                q.push(neighbour);
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+</pre>
+</body>
+</html>
