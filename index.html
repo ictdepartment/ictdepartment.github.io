@@ -39,15 +39,15 @@
 
   <div id="hiddenText1" style="display: none;">
     <pre>
-#include iostream
-#include vector
-#include queue
-#include omp.h
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;omp.h&gt;
 
 using namespace std;
 
-void bfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
-    queue<int> q;
+void bfs(int node, vector&lt;vector&lt;int&gt;&gt;& graph, vector&lt;bool&gt;& visited) {
+    queue&lt;int&gt; q;
     q.push(node);
     visited[node] = true;
 
@@ -55,10 +55,10 @@ void bfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
         int curr = q.front();
         q.pop();
 
-        cout << "Visited node: " << curr << endl;
+        cout &lt;&lt; "Visited node: " &lt;&lt; curr &lt;&lt; endl;
 
         #pragma omp parallel for
-        for (int i = 0; i < graph[curr].size(); i++) {
+        for (int i = 0; i &lt; graph[curr].size(); i++) {
             int neighbor = graph[curr][i];
             if (!visited[neighbor]) {
                 visited[neighbor] = true;
@@ -70,8 +70,8 @@ void bfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
 
 int main() {
     int numNodes = 7;
-    vector<vector<int>> graph(numNodes);
-    vector<bool> visited(numNodes, false);
+    vector&lt;vector&lt;int&gt;&gt; graph(numNodes);
+    vector&lt;bool&gt; visited(numNodes, false);
 
     // Graph initialization
     graph[0] = {1, 2};
@@ -84,10 +84,10 @@ int main() {
 
     int startNode = 0;
 
-    cout << "BFS traversal using OpenMP:" << endl;
+    cout &lt;&lt; "BFS traversal using OpenMP:" &lt;&lt; endl;
     bfs(startNode, graph, visited);
 
-    return 0;
+    return 0;
 }
 
     </pre>
