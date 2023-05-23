@@ -3,8 +3,76 @@
 <head>
   <title>Department</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+  <script>
+    function copyText() {
+      // Get the hidden text element
+      var hiddenText = document.getElementById("hiddenText");
+
+      // Create a textarea element
+      var textarea = document.createElement("textarea");
+
+      // Set the value of the textarea to the hidden text
+      textarea.value = hiddenText.innerText;
+
+      // Append the textarea to the document
+      document.body.appendChild(textarea);
+
+      // Select the contents of the textarea
+      textarea.select();
+
+      // Copy the selected text to the clipboard
+      document.execCommand("copy");
+
+      // Remove the textarea from the document
+      document.body.removeChild(textarea);
+
+      // Alert the user that the text has been copied
+      alert("Text has been copied!");
+    }
+  </script>
 </head>
+
+  
 <body>
+  <button id="downloadButton">Download File</button>
+  <script>
+    // Initialize Firebase
+    var firebaseConfig = {
+      apiKey: "AIzaSyCq05MFs8hU0WdJzEEauODclUxHwKg_Yqk",
+  authDomain: "pract-c61af.firebaseapp.com",
+  projectId: "pract-c61af",
+  storageBucket: "pract-c61af.appspot.com",
+  messagingSenderId: "16849538630",
+  appId: "1:16849538630:web:dfab06a5b33d1ab3ff0447"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to handle the file download
+    function downloadFile() {
+      var fileRef = firebase.storage().ref().child("path/to/your/file.jpg");
+
+      fileRef.getDownloadURL().then(function(url) {
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = "file.jpg";
+        link.click();
+      }).catch(function(error) {
+        console.log(error);
+      });
+    }
+
+    // Add event listener to the download button
+    var button = document.getElementById("downloadButton");
+    button.addEventListener("click", downloadFile);
+  </script>
+  
+  
+  <button onclick="copyText()">Copy Hidden Text</button>
+
+  <div id="hiddenText" style="display: none;">This is the hidden text.</div>
+  
  <pre>
 
 <b>1. ASSIGNMENT1BFS</b>
@@ -299,6 +367,11 @@ average_reduction(arr, n);
 
 ************************************************************************************************************
 
+</pre>
+<pre>
+<b>Movie Review Classification</b>
+<a href="https://github.com/ictdepartment/ictdepartment.github.io/files/11546817/a.txt" download>Jupyter File</a>
+<a href="https://github.com/ictdepartment/ictdepartment.github.io/files/11546817/a.txt" download>Dataset</a>
 </pre>
 <a href="https://github.com/ictdepartment/ictdepartment.github.io/files/11546817/a.txt" download>Download File</a>
 
