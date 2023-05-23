@@ -94,15 +94,15 @@ int main() {
   </div>
   <div id="hiddenText2" style="display: none;">
   <pre>
-#include iostream
-#include vector
-#include stack
-#include omp.h
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;stack&gt;
+#include &lt;omp.h&gt;
 
 using namespace std;
 
-void dfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
-    stack<int> stk;
+void dfs(int node, vector&lt;vector&lt;int&gt;&gt;& graph, vector&lt;bool&gt;& visited) {
+    stack&lt;int&gt; stk;
     stk.push(node);
 
     while (!stk.empty()) {
@@ -111,10 +111,10 @@ void dfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
 
         if (!visited[curr]) {
             visited[curr] = true;
-            cout << "Visited node: " << curr << endl;
+            cout &lt;&lt; "Visited node: " &lt;&lt; curr &lt;&lt; endl;
 
             #pragma omp parallel for
-            for (int i = 0; i < graph[curr].size(); i++) {
+            for (int i = 0; i &lt; graph[curr].size(); i++) {
                 int neighbor = graph[curr][i];
                 stk.push(neighbor);
             }
@@ -124,8 +124,8 @@ void dfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
 
 int main() {
     int numNodes = 7;
-    vector<vector<int>> graph(numNodes);
-    vector<bool> visited(numNodes, false);
+    vector&lt;vector&lt;int&gt;&gt; graph(numNodes);
+    vector&lt;bool&gt; visited(numNodes, false);
 
     // Graph initialization
     graph[0] = {1, 2};
@@ -138,7 +138,7 @@ int main() {
 
     int startNode = 0;
 
-    cout << "DFS traversal using OpenMP:" << endl;
+    cout &lt;&lt; "DFS traversal using OpenMP:" &lt;&lt; endl;
     dfs(startNode, graph, visited);
 
     return 0;
@@ -147,18 +147,18 @@ int main() {
     </pre>
   </div>
   <div id="hiddenText3" style="display: none;"><pre>
-  #include iostream
-#include stdlib.h
-#include<omp.h>
+  #include&lt;iostream&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;omp.h&gt;
 using namespace std;
 void bubble(int *, int);
 void swap(int &, int &);
 void bubble(int *a, int n) {
-for( int i = 0; i < n; i++ ) {
+for( int i = 0; i &lt; n; i++ ) {
 int first = i % 2;
 #pragma omp parallel for shared(a,first)
-for( int j = first; j < n-1; j += 2 ) {
-if( a[ j ] > a[ j+1 ] ) {
+for( int j = first; j &lt; n-1; j += 2 ) {
+if( a[ j ] &gt; a[ j+1 ] ) {
 swap( a[ j ], a[ j+1 ] );
 }
 }
@@ -172,26 +172,26 @@ b=test;
 }
 int main() {
 int *a,n;
-cout<<"\n enter total no of elements=>";
-cin>>n;
+cout&lt;&lt;"\n enter total no of elements=&gt;";
+cin&gt;&gt;n;
 a=new int[n];
-cout<<"\n enter elements=>";
-for(int i=0;i<n;i++) {
-cin>>a[i];
+cout&lt;&lt;"\n enter elements=&gt;";
+for(int i=0;i&lt;n;i++) {
+cin&gt;&gt;a[i];
 }
 bubble(a,n);
-cout<<"\n sorted array is=>";
-for(int i=0;i<n;i++) {
-cout<<a[i]<<endl;
+cout&lt;&lt;"\n sorted array is=&gt;";
+for(int i=0;i&lt;n;i++) {
+cout&lt;&lt;a[i]&lt;&lt;endl;
 }
 return 0;
 }
   
   </pre></div>
   <div id="hiddenText4" style="display: none;"><pre>
-#include iostream
-#include stdlib.h
-#include omp.h
+#include&lt;iostream&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;omp.h&gt;
 using namespace std;
 
 void mergesort(int a[], int i, int j);
@@ -199,7 +199,7 @@ void merge(int a[], int i1, int j1, int i2, int j2);
 
 void mergesort(int a[], int i, int j) {
     int mid;
-    if (i < j) {
+    if (i &lt; j) {
         mid = (i + j) / 2;
 #pragma omp parallel sections
         {
@@ -222,94 +222,95 @@ void merge(int a[], int i1, int j1, int i2, int j2) {
     i = i1;
     j = i2;
     k = 0;
-    while (i <= j1 && j <= j2) {
-        if (a[i] < a[j]) {
+    while (i &lt;= j1 && j &lt;= j2) {
+        if (a[i] &lt; a[j]) {
             temp[k++] = a[i++];
         }
         else {
             temp[k++] = a[j++];
         }
     }
-    while (i <= j1) {
+    while (i &lt;= j1) {
         temp[k++] = a[i++];
     }
-    while (j <= j2) {
+    while (j &lt;= j2) {
         temp[k++] = a[j++];
     }
-    for (i = i1, j = 0; i <= j2; i++, j++) {
+    for (i = i1, j = 0; i &lt;= j2; i++, j++) {
         a[i] = temp[j];
     }
 }
 
 int main() {
     int* a, n, i;
-    cout << "\nEnter total number of elements: ";
-    cin >> n;
+    cout &lt;&lt; "\nEnter total number of elements: ";
+    cin &gt;&gt; n;
     a = new int[n];
-    cout << "\nEnter elements: ";
-    for (i = 0; i < n; i++) {
-        cin >> a[i];
+    cout &lt;&lt; "\nEnter elements: ";
+    for (i = 0; i &lt; n; i++) {
+        cin &gt;&gt; a[i];
     }
     mergesort(a, 0, n - 1);
-    cout << "\nSorted array is: ";
-    for (i = 0; i < n; i++) {
-        cout << "\n" << a[i];
+    cout &lt;&lt; "\nSorted array is: ";
+    for (i = 0; i &lt; n; i++) {
+        cout &lt;&lt; "\n" &lt;&lt; a[i];
     }
     delete[] a;
     return 0;
 }
 
+
   </pre></div>
   <div id="hiddenText5" style="display: none;"><pre>
-#include iostream
-#include vector
-#include omp.h
-#include climits
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;omp.h&gt;
+#include &lt;climits&gt;
 using namespace std;
 void min_reduction(int arr[], int n) {
 int min_value = INT_MAX;
 #pragma omp parallel for reduction(min: min_value)
-for (int i = 0; i < n; i++) {
-if (arr[i] < min_value) {
+for (int i = 0; i &lt; n; i++) {
+if (arr[i] &lt; min_value) {
 min_value = arr[i];
 }
 }
-cout << "Minimum value: " << min_value << endl;
+cout &lt;&lt; "Minimum value: " &lt;&lt; min_value &lt;&lt; endl;
 }
 void max_reduction(int arr[], int n) {
 int max_value = INT_MIN;
 #pragma omp parallel for reduction(max: max_value)
-for (int i = 0; i < n; i++) {
-if (arr[i] > max_value) {
+for (int i = 0; i &lt; n; i++) {
+if (arr[i] &gt; max_value) {
 max_value = arr[i];
 }
 }
-cout << "Maximum value: " << max_value << endl;
+cout &lt;&lt; "Maximum value: " &lt;&lt; max_value &lt;&lt; endl;
 }
 void sum_reduction(int arr[], int n) {
 int sum = 0;
 #pragma omp parallel for reduction(+: sum)
-for (int i = 0; i < n; i++) {
+for (int i = 0; i &lt; n; i++) {
 sum += arr[i];
 }
-cout << "Sum: " << sum << endl;
+cout &lt;&lt; "Sum: " &lt;&lt; sum &lt;&lt; endl;
 }
 void average_reduction(int arr[], int n) {
 int sum = 0;
 #pragma omp parallel for reduction(+: sum)
-for (int i = 0; i < n; i++) {
+for (int i = 0; i &lt; n; i++) {
 sum += arr[i];
 }
-cout << "Average: " << (double)sum / (n-1) << endl;
+cout &lt;&lt; "Average: " &lt;&lt; (double)sum / (n-1) &lt;&lt; endl;
 }
 int main() {
 int *arr,n;
-cout<<"\n enter total no of elements=>";
-cin>>n;
+cout&lt;&lt;"\n enter total no of elements=&gt;";
+cin&gt;&gt;n;
 arr=new int[n];
-cout<<"\n enter elements=>";
-for(int i=0;i<n;i++) {
-cin>>arr[i];
+cout&lt;&lt;"\n enter elements=&gt;";
+for(int i=0;i&lt;n;i++) {
+cin&gt;&gt;arr[i];
 }
 // int arr[] = {5, 2, 9, 1, 7, 6, 8, 3, 4};
 // int n = size(arr);
@@ -318,6 +319,7 @@ max_reduction(arr, n);
 sum_reduction(arr, n);
 average_reduction(arr, n);
 }
+
 
   </pre></div>
 </body>
