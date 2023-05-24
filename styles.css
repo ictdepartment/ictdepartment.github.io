@@ -1,8 +1,29 @@
-body {
-  background-color: black;
-  color: white;
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+header {
+  background-color: #333;
+  padding: 10px;
 }
 
-h1, p , pre {
-  color: white;
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #ff9900;
 }
