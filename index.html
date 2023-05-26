@@ -1,340 +1,278 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ICTDepartment</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <script>
-    function copyText(buttonId, hiddenTextId) {
-      // Get the hidden text element
-      var hiddenText = document.getElementById(hiddenTextId);
-
-      // Create a textarea element
-      var textarea = document.createElement("textarea");
-
-      // Set the value of the textarea to the hidden text
-      textarea.value = hiddenText.innerText;
-
-      // Append the textarea to the document
-      document.body.appendChild(textarea);
-
-      // Select the contents of the textarea
-      textarea.select();
-
-      // Copy the selected text to the clipboard
-      document.execCommand("copy");
-
-      // Remove the textarea from the document
-      document.body.removeChild(textarea);
-
-      // Alert the user that the text has been copied
-      alert("Text has been copied from button: " + buttonId);
+  <title>Hacker Blog</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #0F0;
+      font-family: 'Courier New', monospace;
     }
-  </script>
+    
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #0f0;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+    }
+    
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    
+    .navbar li a {
+      display: block;
+      color: #111;
+      text-decoration: none;
+      padding: 10px;
+    }
+    
+    .navbar li a:hover {
+      color: #F00;
+    }
+    
+    .logo {
+      color: #111;
+      font-size: 30px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    .logo:hover {
+      color: #F00;
+    }
+    
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 60px; /* Adjust as needed to avoid content overlapping with the navbar */
+    }
+    
+    .main-column {
+      flex: 3;
+      
+      padding: 20px;
+    }
+    
+    .sidebar {
+      flex: 1;
+      background-color: #111;
+      padding: 20px;
+    }
+    
+    h1 {
+      font-size: 30px;
+      text-align: left;
+      font-family: 'PixelFont', monospace;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: .15em solid #0f0; /* Green blinking cursor */
+      /*animation: typewriter 4s steps(40) 1s 1 normal both;*/
+      
+    }
+
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+    
+    .post {
+      margin-bottom: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: #111;
+      border: 1px solid #0F0;
+      
+    }
+    
+    .post h2 {
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .post p {
+      font-size: 16px;
+      line-height: 1;
+    }
+    
+    .post a {
+      color: #0F0;
+      text-decoration: none;
+    }
+    
+    .post a:hover {
+      color: #F00;
+    }
+    
+    .important-links {
+      margin-top: 30px;
+    }
+    
+    .important-links a {
+      display: block;
+      color: #0F0;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+    
+    .important-links a:hover {
+      color: #F00;
+    }
+    
+    .footer {
+      background-color: #0f0;
+      padding: 10px;
+      text-align: center;
+      color: #111;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    .hacker-button {
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s ease;
+    }
+    
+    .hacker-button:hover {
+      background-color: #F00;
+    }
+    .badge {
+  background-color: #0f0;
+  color: #000;
+  font-size: 12px;
+  padding: 3px 6px;
+  
+  margin-left: 10px;
+}
+.input-container {
+    margin: 30px auto;
+      max-width: 400px;
+      padding: 20px;
+      background-color: #111;
+      border: 1px solid #0f0;
+      border-radius: 5px;
+    }
+    
+    .input-label {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    .input-field {
+      width: 93%;
+      padding: 10px;
+      background-color: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .input-button {
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s ease;
+    }
+    
+    .input-button:hover {
+      background-color: #f00;
+    }
+  </style>
 </head>
 <body>
-  <button onclick="copyText('button1', 'hiddenText1')">Assignment 1-1 (BFS)</button>
-  <button onclick="copyText('button2', 'hiddenText2')">Assignment 1-2 (DFS) </button>
-  <button onclick="copyText('button3', 'hiddenText3')">Assignment 2-1 (BUBBLESORT)</button>
-  <button onclick="copyText('button4', 'hiddenText4')">Assignment 2-2 (MERGSORT)</button>
-  <button onclick="copyText('button5', 'hiddenText5')">Assignment 3 (MINMACAVG)</button>
-  </br>
-  
- <a href="https://firebasestorage.googleapis.com/v0/b/pract-c61af.appspot.com/o/IMDB.ipynb?alt=media&token=765a18e8-2609-494e-b6a7-f193862da42d" download>IMDB Code</a>
- <a href="https://firebasestorage.googleapis.com/v0/b/pract-c61af.appspot.com/o/IMDB%20Dataset.csv?alt=media&token=e696b2cd-60e6-4e2b-8674-4b0c19c5acb3" download>IMDB Dataset</a>
-  <a href="https://firebasestorage.googleapis.com/v0/b/pract-c61af.appspot.com/o/Fashion.ipynb?alt=media&token=641f264f-c1cc-4146-9ab8-46dd5a7d7473" download>FASHION Code</a>
- <a href="https://firebasestorage.googleapis.com/v0/b/pract-c61af.appspot.com/o/fashion-mnist_test.csv?alt=media&token=dcb79495-38a0-4bbe-ac28-9578533cf683" download>FASHION Test Dataset</a>
-   <a href="https://firebasestorage.googleapis.com/v0/b/pract-c61af.appspot.com/o/fashion-mnist_train.csv?alt=media&token=2b652b29-a7cf-468d-9094-e2f009f4a90e" download>FASHION Train Dataset</a>
-  <a href="https://firebasestorage.googleapis.com/v0/b/pract-c61af.appspot.com/o/boston1.ipynb?alt=media&token=da47c828-23d2-4123-b022-29ae0756b4ca" download>Boston Code</a>
-  <div id="hiddenText1" style="display: none;">
-    <pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;omp.h&gt;
-
-using namespace std;
-
-void bfs(int node, vector&lt;vector&lt;int&gt;&gt;& graph, vector&lt;bool&gt;& visited) {
-    queue&lt;int&gt; q;
-    q.push(node);
-    visited[node] = true;
-
-    while (!q.empty()) {
-        int curr = q.front();
-        q.pop();
-
-        cout &lt;&lt; "Visited node: " &lt;&lt; curr &lt;&lt; endl;
-
-        #pragma omp parallel for
-        for (int i = 0; i &lt; graph[curr].size(); i++) {
-            int neighbor = graph[curr][i];
-            if (!visited[neighbor]) {
-                visited[neighbor] = true;
-                q.push(neighbor);
-            }
-        }
-    }
-}
-
-int main() {
-    int numNodes = 7;
-    vector&lt;vector&lt;int&gt;&gt; graph(numNodes);
-    vector&lt;bool&gt; visited(numNodes, false);
-
-    // Graph initialization
-    graph[0] = {1, 2};
-    graph[1] = {3, 4};
-    graph[2] = {5};
-    graph[3] = {};
-    graph[4] = {6};
-    graph[5] = {2};
-    graph[6] = {};
-
-    int startNode = 0;
-
-    cout &lt;&lt; "BFS traversal using OpenMP:" &lt;&lt; endl;
-    bfs(startNode, graph, visited);
-
-    return 0;
-}
-
-    </pre>
+  <div class="navbar">
+    <div class="logo"><strong>ICT DEPARTMENT</strong></div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Posts</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
   </div>
-  <div id="hiddenText2" style="display: none;">
-  <pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;stack&gt;
-#include &lt;omp.h&gt;
-
-using namespace std;
-
-void dfs(int node, vector&lt;vector&lt;int&gt;&gt;& graph, vector&lt;bool&gt;& visited) {
-    stack&lt;int&gt; stk;
-    stk.push(node);
-
-    while (!stk.empty()) {
-        int curr = stk.top();
-        stk.pop();
-
-        if (!visited[curr]) {
-            visited[curr] = true;
-            cout &lt;&lt; "Visited node: " &lt;&lt; curr &lt;&lt; endl;
-
-            #pragma omp parallel for
-            for (int i = 0; i &lt; graph[curr].size(); i++) {
-                int neighbor = graph[curr][i];
-                stk.push(neighbor);
-            }
-        }
-    }
-}
-
-int main() {
-    int numNodes = 7;
-    vector&lt;vector&lt;int&gt;&gt; graph(numNodes);
-    vector&lt;bool&gt; visited(numNodes, false);
-
-    // Graph initialization
-    graph[0] = {1, 2};
-    graph[1] = {3, 4};
-    graph[2] = {5};
-    graph[3] = {};
-    graph[4] = {6};
-    graph[5] = {2};
-    graph[6] = {};
-
-    int startNode = 0;
-
-    cout &lt;&lt; "DFS traversal using OpenMP:" &lt;&lt; endl;
-    dfs(startNode, graph, visited);
-
-    return 0;
-}
-
-    </pre>
-  </div>
-  <div id="hiddenText3" style="display: none;"><pre>
-  #include&lt;iostream&gt;
-#include&lt;stdlib.h&gt;
-#include&lt;omp.h&gt;
-using namespace std;
-void bubble(int *, int);
-void swap(int &, int &);
-void bubble(int *a, int n) {
-for( int i = 0; i &lt; n; i++ ) {
-int first = i % 2;
-#pragma omp parallel for shared(a,first)
-for( int j = first; j &lt; n-1; j += 2 ) {
-if( a[ j ] &gt; a[ j+1 ] ) {
-swap( a[ j ], a[ j+1 ] );
-}
-}
-}
-}
-void swap(int &a, int &b) {
-int test;
-test=a;
-a=b;
-b=test;
-}
-int main() {
-int *a,n;
-cout&lt;&lt;"\n enter total no of elements=&gt;";
-cin&gt;&gt;n;
-a=new int[n];
-cout&lt;&lt;"\n enter elements=&gt;";
-for(int i=0;i&lt;n;i++) {
-cin&gt;&gt;a[i];
-}
-bubble(a,n);
-cout&lt;&lt;"\n sorted array is=&gt;";
-for(int i=0;i&lt;n;i++) {
-cout&lt;&lt;a[i]&lt;&lt;endl;
-}
-return 0;
-}
   
-  </pre></div>
-  <div id="hiddenText4" style="display: none;"><pre>
-#include&lt;iostream&gt;
-#include&lt;stdlib.h&gt;
-#include&lt;omp.h&gt;
-using namespace std;
-
-void mergesort(int a[], int i, int j);
-void merge(int a[], int i1, int j1, int i2, int j2);
-
-void mergesort(int a[], int i, int j) {
-    int mid;
-    if (i &lt; j) {
-        mid = (i + j) / 2;
-#pragma omp parallel sections
-        {
-#pragma omp section
-            {
-                mergesort(a, i, mid);
-            }
-#pragma omp section
-            {
-                mergesort(a, mid + 1, j);
-            }
-        }
-        merge(a, i, mid, mid + 1, j);
-    }
-}
-
-void merge(int a[], int i1, int j1, int i2, int j2) {
-    int temp[1000];
-    int i, j, k;
-    i = i1;
-    j = i2;
-    k = 0;
-    while (i &lt;= j1 && j &lt;= j2) {
-        if (a[i] &lt; a[j]) {
-            temp[k++] = a[i++];
-        }
-        else {
-            temp[k++] = a[j++];
-        }
-    }
-    while (i &lt;= j1) {
-        temp[k++] = a[i++];
-    }
-    while (j &lt;= j2) {
-        temp[k++] = a[j++];
-    }
-    for (i = i1, j = 0; i &lt;= j2; i++, j++) {
-        a[i] = temp[j];
-    }
-}
-
-int main() {
-    int* a, n, i;
-    cout &lt;&lt; "\nEnter total number of elements: ";
-    cin &gt;&gt; n;
-    a = new int[n];
-    cout &lt;&lt; "\nEnter elements: ";
-    for (i = 0; i &lt; n; i++) {
-        cin &gt;&gt; a[i];
-    }
-    mergesort(a, 0, n - 1);
-    cout &lt;&lt; "\nSorted array is: ";
-    for (i = 0; i &lt; n; i++) {
-        cout &lt;&lt; "\n" &lt;&lt; a[i];
-    }
-    delete[] a;
-    return 0;
-}
-
-
-  </pre></div>
-  <div id="hiddenText5" style="display: none;"><pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;omp.h&gt;
-#include &lt;climits&gt;
-using namespace std;
-void min_reduction(int arr[], int n) {
-int min_value = INT_MAX;
-#pragma omp parallel for reduction(min: min_value)
-for (int i = 0; i &lt; n; i++) {
-if (arr[i] &lt; min_value) {
-min_value = arr[i];
-}
-}
-cout &lt;&lt; "Minimum value: " &lt;&lt; min_value &lt;&lt; endl;
-}
-void max_reduction(int arr[], int n) {
-int max_value = INT_MIN;
-#pragma omp parallel for reduction(max: max_value)
-for (int i = 0; i &lt; n; i++) {
-if (arr[i] &gt; max_value) {
-max_value = arr[i];
-}
-}
-cout &lt;&lt; "Maximum value: " &lt;&lt; max_value &lt;&lt; endl;
-}
-void sum_reduction(int arr[], int n) {
-int sum = 0;
-#pragma omp parallel for reduction(+: sum)
-for (int i = 0; i &lt; n; i++) {
-sum += arr[i];
-}
-cout &lt;&lt; "Sum: " &lt;&lt; sum &lt;&lt; endl;
-}
-void average_reduction(int arr[], int n) {
-int sum = 0;
-#pragma omp parallel for reduction(+: sum)
-for (int i = 0; i &lt; n; i++) {
-sum += arr[i];
-}
-cout &lt;&lt; "Average: " &lt;&lt; (double)sum / (n-1) &lt;&lt; endl;
-}
-int main() {
-int *arr,n;
-cout&lt;&lt;"\n enter total no of elements=&gt;";
-cin&gt;&gt;n;
-arr=new int[n];
-cout&lt;&lt;"\n enter elements=&gt;";
-for(int i=0;i&lt;n;i++) {
-cin&gt;&gt;arr[i];
-}
-// int arr[] = {5, 2, 9, 1, 7, 6, 8, 3, 4};
-// int n = size(arr);
-min_reduction(arr, n);
-max_reduction(arr, n);
-sum_reduction(arr, n);
-average_reduction(arr, n);
-}
-
-
-  </pre></div>
-  <pre><h5>
-!pip install scikit-learn==1.1.3
-!pip install sklearn==1.1.3
-</h5>
-
-</pre>
+  <div class="content">
+    <div class="main-column">
+      <h1><u>Spreading the Department culture </u></h1>
+      
+      <div class="post">
+        <h2 class="post-title">Fourth Year of Computer Engineering Books:Semister VIII(2019 Course)<span class="badge">New</span></h2>
+        <div class="post-content">
+          <p>Click on subjects to download the books.</p>
+          <p><a href="https://firebasestorage.googleapis.com/v0/b/ict-department-34c3c.appspot.com/o/HPC_Techknowledge_3_to_6.pdf?alt=media&token=60b47d21-a34f-400c-b388-ff88765d374a ">_1. High Performance Computing</a></p>
+          <p><a href="https://firebasestorage.googleapis.com/v0/b/ict-department-34c3c.appspot.com/o/DL_technkowledge.pdf?alt=media&token=c585f824-29f1-45e3-9469-2ab04fa18f0e">_2. Deep Learning</a></p>
+          <p><a href="https://firebasestorage.googleapis.com/v0/b/ict-department-34c3c.appspot.com/o/nlp.pdf?alt=media&token=0932c2e6-f1cd-4ac1-b937-0f0bd8052b4d ">_3. Natural Language Processing</a>.</p>
+          <p><a href="https://firebasestorage.googleapis.com/v0/b/ict-department-34c3c.appspot.com/o/BI.pdf?alt=media&token=6008a4cf-11d0-4aeb-b6a0-5787a08fb9be ">_4. Buisness Intelligence</a>.</p>
+        </div>
+      </div>
+      <div class="post">
+        <h2 class="post-title">HPC & DL Practicals Codes:Semister VIII(2019 Course)<span class="badge">New</span></h2>
+        <div class="post-content">
+          <p>Click on subjects to download the Codes.</p>
+          <p><a href="https://firebasestorage.googleapis.com/v0/b/ict-department-34c3c.appspot.com/o/HPC.zip?alt=media&token=f8193860-fdee-46e6-bf25-ba7e28db7883 ">_1. High Performance Computing</a></p>
+          <p><a href="https://firebasestorage.googleapis.com/v0/b/ict-department-34c3c.appspot.com/o/DL.zip?alt=media&token=b26c1f15-517f-4002-91b8-1951d0cb69fe ">_2. Deep Learning</a></p>
+        </div>
+      </div>
+      
+      
+    </div>
+    
+    <div class="sidebar">
+      
+        <h3>Request Box :</h3>
+      <div class="input-container">
+        <label class="input-label"></label>
+        <input id="email-input" type="text" class="input-field">
+        <button class="input-button">Submit</button>
+      </div>
+      <div class="important-links">
+        
+        <a href="#">Cybersecurity Tips</a>
+        <a href="#">Latest Hacking Tools</a>
+        <a href="#">Upcoming Events</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    &copy; 2023 ICT-Department. All rights reserved.
+  </div>
+  
 </body>
 </html>
